@@ -5,12 +5,15 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import Filter from "./components/Filter/Filter";
 import { CSSTransition } from "react-transition-group";
+import Alert from './components/Alert/Alert';
 
 
 class App extends Component {
   state = {
     contacts: [],
     filter: "",
+    message: false,
+    showAlert: false,
   };
 
   isContactExist = (value) => {
@@ -37,8 +40,12 @@ class App extends Component {
       this.isContactExist(contactFormState.name) ||
       contactFormState.name.length === 0
     ) {
-      alert(`${contactFormState.name} is already in contacts.`);
-    } else {
+      this.setState({ message: `${contactFormState.name} is already in contacts.`, showAlert: true })
+      setTimeout(() => {
+        this.setState({ showAlert: false });
+      }, 1000);
+      return
+          } else {
       this.setState((prevState) => {
         return {
           contacts: prevState.contacts.concat({
@@ -77,6 +84,10 @@ class App extends Component {
 
   render() {
     return (
+      <>
+      <CSSTransition in={this.state.showAlert} timeout={500} classNames={style} unmountOnExit>
+          <Alert message={this.state.message} />
+        </CSSTransition>
       <div className={style.container}>
         <div>
           <CSSTransition
@@ -103,6 +114,7 @@ class App extends Component {
           />
         </div>
       </div>
+      </>
     );
   }
 }
