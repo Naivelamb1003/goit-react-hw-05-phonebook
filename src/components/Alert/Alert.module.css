@@ -2,9 +2,9 @@
     position: absolute;
     right: 30px;
     top: 10px;
-    background-color: rgb(94, 94, 95);
-    border: red solid 1px;
-    border-radius: 10px;
+    background-color: rgb(245, 49, 0);
+    
+    
     /* width: 300px; */
     height: auto;
     display: flex;
